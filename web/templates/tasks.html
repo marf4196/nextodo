@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Tasks </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Add New Task</div>
+    <h1>{{ message }}</h1>
+    <div class="content">
+        
+      <form action="/tasks/add/" method="POST">{% csrf_token %}
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Task text</span>
+            <input type="text" placeholder="Enter task text" name="text" class="edit" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Action date</span>
+            <input type="date" name="action_date"class="edit" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Due date</span>
+            <input type="date" name="due_date"class="edit" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Status</span>
+            <select name="statuse" id="">
+                <option value="Active">Active</option>
+                <option value="Pending">Pending</option>
+                <option value="Fail">Fail</option>
+                <option value="Done">Done</option>
+                <option value="Canceled">Canceled</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <span class="details">Priority</span>
+            <select name="priority" id="">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            </div>
+        </div>
+        
+        <div class="button">
+          <input type="submit" value="Add task">
+        </div>
+      </form>
+    </div>
+    <div>
+      <div class="title">Here are your tasks</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>taskText</th>
+                    <th>priority</th>
+                    <th>statuse</th>
+                    <th>dueDate</th>
+                    <th>actionDate</th>
+                </tr>
+                
+            </thead>
+            {% for item in task %}
+            <tbody>
+                <tr>
+                    <td><a href="{{ item.get_url }}">{{ item.text }}</a></td>
+                    <td><a href="{{ item.get_url }}">{{ item.priority }}</a></td>
+                    <td><a href="{{ item.get_url }}">{{ item.statuse }}</a></td>
+                    <td><a href="{{ item.get_url }}">{{ item.action_date|date:"Y-m-d" }}</a></td>
+                    <td><a href="{{ item.get_url }}">{{ item.action_date }}</a></td>
+                </tr>
+            </tbody>
+                {% endfor %}
+        </table>
+        <form action="">{% csrf_token %}
+          <div class="button">
+            <a href="{% url 'web:logout' %}"><input type="button" value="Logout"></a>
+          </div>
+        </form>
+    </div>
+  </div>
+
+</body>
+</html>

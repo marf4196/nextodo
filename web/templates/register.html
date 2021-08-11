@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Register </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src='https://www.google.com/recaptcha/api.js'></script>
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Registration</div>
+    <h1>{{ message }}</h1>
+    <div class="content">
+        
+      <form action="." method="POST">{% csrf_token %}
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Username</span>
+            <input type="text" placeholder="Enter your username" name="username" value="{{ username }}" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" placeholder="Enter your email" name="email" value="{{ email }}" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="password" placeholder="Enter your password" name="password" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Confirm Password</span>
+            <input type="password" placeholder="Confirm your password" name="passwordconf" required>
+          </div>
+        </div>
+        <div class="input-box">
+          <span class="details">Are you a robot?</span>
+        </div>
+        <!-- <div class="g-recaptcha" data-sitekey="6LeYJPAbAAAAADmiEwBulklBlykM6b2oOcfa9_VK"></div> -->
+        <div class="g-recaptcha" data-sitekey="6LdGzfAbAAAAAHJeGJJ17wI_3Cw6s-k7jR9gPzfs"></div>
+        
+        <div class="button">
+          <input type="submit" value="Register">
+        </div>
+      </form>
+      <form action="">{% csrf_token %}
+        <div class="button">
+          <a href="/"><input type="button" value="Main Page"></a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

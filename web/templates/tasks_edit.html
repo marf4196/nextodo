@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Edit task </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Edir your task</div>
+    <h1>{{ message }}</h1>
+    <div class="content">
+        
+        <form action="{{ task.get_edit_url }}" method="POST">{% csrf_token %}
+            <div class="user-details">
+              <div class="input-box">
+                <span class="details">Task text</span>
+                <input type="text" placeholder="Enter task text" name="text" value="{{ task.text }}" class="edit" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Action date</span>
+                <input type="date" name="action_date"class="edit" value='{{ task.action_date|date:"Y-m-d" }}' required>
+              </div>
+              <div class="input-box">
+                <span class="details">Due date</span>
+                <input type="date" name="due_date"class="edit" value='{{ task.due_date|date:"Y-m-d" }}' required>
+              </div>
+              <div class="input-box">
+                <span class="details">Status</span>
+                <select name="statuse" id="">
+                    {% if task.statuse == 'Active' %}
+                    <option value="Active" selected>Active</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Fail">Fail</option>
+                    <option value="Done">Done</option>
+                    <option value="Canceled">Canceled</option>
+                    {% endif %}
+                    {% if task.statuse == 'Pending' %}
+                    <option value="Active">Active</option>
+                    <option value="Pending" selected>Pending</option>
+                    <option value="Fail">Fail</option>
+                    <option value="Done">Done</option>
+                    <option value="Canceled">Canceled</option>
+                    {% endif %}
+                    {% if task.statuse == 'Fail' %}
+                    <option value="Active">Active</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Fail" selected>Fail</option>
+                    <option value="Done">Done</option>
+                    <option value="Canceled">Canceled</option>
+                    {% endif %}
+                    {% if task.statuse == 'Done' %}
+                    <option value="Active">Active</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Fail">Fail</option>
+                    <option value="Done" selected>Done</option>
+                    <option value="Canceled">Canceled</option>
+                    {% endif %}
+                    {% if task.statuse == 'Canceled' %}
+                    <option value="Active">Active</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Fail">Fail</option>
+                    <option value="Done">Done</option>
+                    <option value="Canceled" selected>Canceled</option>
+                    {% endif %}
+                </select>
+              </div>
+              <div class="input-box">
+                <span class="details">Priority</span>
+                <select name="priority" id="">
+                    {% if task.priority == '1' %}
+                    <option value="1"  selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    {% endif %}
+                    {% if task.priority == '2' %}
+                    <option value="1">1</option>
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    {% endif %}
+                    {% if task.priority == '3' %}
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    {% endif %}
+                    {% if task.priority == '4' %}
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4" selected>4</option>
+                    <option value="5">5</option>
+                    {% endif %}
+                    {% if task.priority == '5' %}
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected>5</option>
+                    {% endif %}
+                </select>
+                </div>
+            </div>
+            
+            <div class="button">
+              <input type="submit" value="Edit task">
+            </div>
+          </form>
+          <form action="{{ task.get_deleteConfirm_url }}" method="POST">{% csrf_token %}
+            <div class="button">
+              <input type="submit" value="Delete task">
+            </div>
+            <div class="button">
+              <a href="{% url 'web:tasks' %}"><input type="button" value="Go Back"></a>
+            </div>
+          </form>
+    </div>
+  </div>
+
+</body>
+</html>

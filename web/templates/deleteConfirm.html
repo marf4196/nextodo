@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Confirm Delete </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Are you sure you want to delete this task?</div>
+    <h1>{{ message }}</h1>
+    <div class="content">
+          <form action="{{ task.get_delete_url }}" method="POST">{% csrf_token %}
+            <div class="button">
+              <input type="submit" value="Delete task">
+            </div>
+            <div class="button">
+                <a href="{{ task.get_url }}"><input type="button" value="Go Back"></a>
+              </div>
+        </form>
+    </div>
+  </div>
+
+</body>
+</html>

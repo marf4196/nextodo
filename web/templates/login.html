@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Login </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Login</div>
+    <h3>{{ message }}</h3>
+    <div class="content">
+        
+      <form action="." method="POST">{% csrf_token %}
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Username or Email</span>
+            <input type="text" placeholder="Enter your username or email" name="usermail" value="{{ useremail }}" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="password" placeholder="Enter your password" name="password" required>
+          </div>
+        </div>
+        <div class="button">
+          <input type="submit" value="Login">
+        </div>
+      </form>
+      <form action="">{% csrf_token %}
+        <div class="button">
+          <a href="/"><input type="button" value="Main Page"></a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

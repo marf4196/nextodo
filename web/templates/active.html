@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title> Account activition </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <h1>{{ message }}</h1>
+    <div class="content">
+          <form action="">{% csrf_token %}
+            <div class="button">
+                <a href="/login/"><input type="button" value="Login"></a>
+              </div>
+              <div class="button">
+                <a href="/"><input type="button" value="Go Back"></a>
+              </div>
+        </form>
+    </div>
+  </div>
+
+</body>
+</html>

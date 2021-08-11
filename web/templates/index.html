@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title> Lets be orgnized </title>
+    {% load static %}
+    <link href="{% static '/css/style.css' %}" rel="stylesheet" type="text/css" >
+     
+   </head>
+<body>
+  <div class="container">
+    <div class="title">
+        {% if user.username %}
+        Welcome {{ user.username }}
+        {% else %}
+        We are todoer
+        {% endif %}
+    </div>
+    <h3>{{ message }}</h3>
+    <div class="content">
+        
+        <div class="user-details" style="margin-top: 15px;">
+            <p>With todoer you can simply keep up with your tasks.
+              <br><br><br>
+              this project is under heavy development. right now we are working on
+              send verfication sms part of the project. it is done but we have to wait
+              for the paperworks. till then contact me for verfication code.
+              <br><br><br>
+              you can contact me via: +989171878751
+              <br><br><br>
+              also this project is open source and you can find it on github. make sure
+              to commit and send issues so we can make it better.
+              <br><br><br>
+              in the next few days you can see what we are working on, right in this page.
+            </p>
+          </div>
+          {% if request.user.is_anonymous %}
+          <div class="button-container">
+              <a href="{% url 'web:register' %}">
+        <div class="button">
+          <input type="button" value="register">
+        </a>
+        </div>
+        <a href="{% url 'web:login' %}">
+        <div class="button">
+          <input type="button" value="Login">
+        </a>
+        </div>
+    </div>
+          {% elif not request.user.is_anonymous %}
+          <form action="">{% csrf_token %}
+            <div class="button">
+              <a href="{% url 'web:logout' %}"><input type="button" value="Logout"></a>
+            </div>
+            <div class="button">
+              <a href="{% url 'web:tasks' %}"><input type="button" value="Tasks"></a>
+            </div>
+          </form>
+          {% endif %}
+    </div>
+  </div>
+
+</body>
+</html>
