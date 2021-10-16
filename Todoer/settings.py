@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-a7=m+m=%0gxh4ctkt_)bmy3(2!0ic6+$yjqye!@(q3_n*2-(+a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.103', '94.183.230.36']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -132,5 +132,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'web/static'),
 ]
+# AUTH_USER_MODEL = 'myapp.MyUser'
 
 RECAPTCHA_SECRET_KEY = 'Your Code here'

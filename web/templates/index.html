@@ -30,8 +30,26 @@
               also this project is open source and you can find it on github. make sure
               to commit and send issues so we can make it better.
               <br><br><br>
-              in the next few days you can see what we are working on, right in this page.
+              <h1>NEWS:</h1>
+              <br><br><br>
             </p>
+            <table>
+              <thead>
+                  <tr>
+                      <th>Title</th>
+                      <th>Text</th>
+                  </tr>
+                  
+              </thead>
+              {% for new in news %}
+              <tbody>
+                  <tr>
+                      <td>{{ new.title }}</td>
+                      <td>{{ new.text }}</td>
+                  </tr>
+              </tbody>
+                  {% endfor %}
+          </table>
           </div>
           {% if request.user.is_anonymous %}
           <div class="button-container">

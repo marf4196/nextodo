@@ -49,3 +49,8 @@ class TempUser(models.Model):
     password    = models.CharField(max_length=512)
     code        = models.CharField(max_length=512)
     phone       = models.CharField(max_length=512)
+
+class news(models.Model):
+    title       = models.CharField(max_length=512)
+    text        = models.CharField(max_length=1024)
+    is_active   = models.BooleanField()

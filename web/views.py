@@ -3,16 +3,21 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import Task, TempUser
+from .models import Task, TempUser, news
 from django.conf import settings
 import datetime
 import random
 import string
 from kavenegar import *
 import time
+import logging
+
 
 api = KavenegarAPI('7A336337304B75774A5748326E673871756F2F657572764F576D6747526F63626A33556F674A514B4135303D')
 random_str = lambda N: ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(N))
+logging.basicConfig(filename='activation.log' ,level=logging.DEBUG,
+    format='%(asctime)s:%(levelname)s:%(message)s')
+
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -53,9 +58,17 @@ def RateLimited(maxPerSecond): # a decorator. @RateLimited(10) will let 10 runs 
 def index_view(request, *args, **kwargs):
     print(f'\n\n\n----------------\n\n\n{request.user.username} : {get_client_ip(request)} opened index view at {datetime.datetime.now()}\n\n\n----------------\n\n\n')
     print(request.user.username)
-    context = {
-        'user': request.user
-    }
+    if news.objects.filter(is_active=True).exists():
+        all_news = news.objects.filter(is_active=True)
+
+        context = {
+            'user': request.user,
+            'news': all_news
+        }
+    else:
+        context = {
+            'user': request.user,
+        }
     return render(request, 'index.html', context)
 
 
@@ -65,7 +78,7 @@ def register_view(request, *args, **kwargs):
     
     if request.user.is_anonymous:
         if request.POST:
-            if not grecaptcha_verify(request): # captcha was not correct
+            if  grecaptcha_verify(request): # captcha was not correct important remember to add 'not'
                 context = {'message': 'reCaptcha failed, or maybe you are robot?'} #TODO: forgot password
                 return render(request, 'register.html', context)
             if not User.objects.filter(username = request.POST['username']).exists():
@@ -100,7 +113,8 @@ def register_view(request, *args, **kwargs):
                         #            'receptor': '09171878751',
                         #            'message' :activeMessage }
                         # response = api.sms_send( params)
-                        print(f'\n\n\n----------------\n\n\n{activeMessage}\n\n\n----------------\n\n\n')
+                        logging.debug(f'\n\n\n----------------\n\n\n{activeMessage}\n\n\n----------------\n\n\n')
+                        # print(f'\n\n\n----------------\n\n\n{activeMessage}\n\n\n----------------\n\n\n')
                         
                         context = {
                         'username': request.POST['username'],
